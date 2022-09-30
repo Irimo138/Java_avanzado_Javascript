@@ -17,18 +17,22 @@ class masterMind{
 
     comprobarLetras(intro){
         var cont = 0;
+        var arrayIntro = intro.split("");
+        var comprobar = new Array(4);
         for (let index = 0; index < this.frase.length; index++) {
-            var letra = false;
-            let index2 = 0;
-            do {
-                if(this.frase.charAt(index) == intro.charAt(index2)){
-                    cont++;
-                    letra = true;
-                }
-                index2++;
-                console.log(index2);
-            } while (index2 < intro.length || letra == true);
+            for (let index2 = index; index2 < arrayIntro.length; index2++) {
+                if(this.frase.charAt(index) == arrayIntro[index2]){
+                    comprobar[index] = 1;
+                } 
+            }    
         }
+        for (let index = 0; index < comprobar.length; index++) {
+            if(comprobar[index] == 1){
+                cont++;
+            }
+            
+        }
+
         return "Acierto de Letras: "+(cont);
     }
 }
@@ -37,11 +41,16 @@ function inicio(){
 }
 
 function calcular() {
+    document.getElementById("anadir").innerHTML="";
     var introP = document.getElementById("texto").value;
     var intro = introP.toUpperCase();
     var m = new masterMind("RGGB");
-    console.log(intro.length);
-    console.log(m.comprobarPosicion(intro));
-    console.log(m.comprobarLetras(intro))
-
+    var añadir = document.createElement("h4");
+    var respuesta = m.comprobarLetras(intro);
+    añadir.textContent = respuesta;
+    var añadir2 = document.createElement("h4");
+    var respuesta2 = m.comprobarPosicion(intro);
+    añadir2.textContent = respuesta2;
+    document.getElementById("anadir").appendChild(añadir);
+    document.getElementById("anadir").appendChild(añadir2);
 }
